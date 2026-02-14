@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For Noorz 💙</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1c2d;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .screen {
+      display: none;
+      padding: 20px;
+      width: 100%;
+    }
+    .screen.active {
+      display: block;
+    }
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 20px;
+    }
+    img {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 12px;
+      object-fit: contain;
+    }
+    .hint {
+      margin-top: 20px;
+      font-size: 0.9em;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body onclick="nextScreen()">
+
+  <!-- Screen 1 -->
+  <div class="screen active" id="s1">
+    <h1>Happy Valentine’s, my Noorz 💙</h1>
+    <div class="hint">(Tap anywhere)</div>
+  </div>
+
+  <!-- Screen 2: Slideshow -->
+  <div class="screen" id="s2">
+    <h1>Just for you 💙</h1>
+    <img id="slide" src="img1.jpg" alt="Memory">
+    <div class="hint">(Tap anywhere)</div>
+  </div>
+
+  <!-- Screen 3 -->
+  <div class="screen" id="s3">
+    <h1>Love you a lot ❤️</h1>
+  </div>
+
+  <script>
+    let current = 1;
+
+    const images = ["img1.jpg", "img2.jpg", "img3.jpg"];
+    let slideIndex = 0;
+    let slideshowInterval = null;
+
+    function startSlideshow() {
+      const img = document.getElementById("slide");
+      slideshowInterval = setInterval(() => {
+        slideIndex++;
+        if (slideIndex >= images.length) {
+          clearInterval(slideshowInterval);
+          nextScreen();
+          return;
+        }
+        img.src = images[slideIndex];
+      }, 2500);
+    }
+
+    function nextScreen() {
+      document.getElementById("s" + current).classList.remove("active");
+      current++;
+      if (current > 3) current = 3;
+      document.getElementById("s" + current).classList.add("active");
+
+      if (current === 2) {
+        slideIndex = 0;
+        document.getElementById("slide").src = images[0];
+        startSlideshow();
+      }
+    }
+  </script>
+
+</body>
+</html>
